@@ -16,8 +16,6 @@ const Page = () => {
   const [error, setError]= useState<boolean>(false);
   const [loading, setLoading]= useState<boolean>(false);
 
-  const {lista} = useLista()
-
   useEffect(()=>{
     if(name != ''){
       setLoading(true)
@@ -47,7 +45,6 @@ const Page = () => {
         router.push(`/cocktail/${id}`)
       }}>Dime algo bonito</button>
       <p/>
-      <p>LISTA: {lista.map(e=><p key={e}>{e}</p>)}</p>
       <div>
         <input
           value={name} 

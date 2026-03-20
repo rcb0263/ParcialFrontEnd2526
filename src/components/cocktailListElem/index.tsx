@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react"
 import "./style.css";
 import { useLista } from "@/context/listaContext"
+import { getCocktailById } from "@/lib/api/cocktails";
 
 export const CocktailListElem =(params: {id?: string, cocktail?: Cocktail})=>{
   const [drink, setDrink] = useState<Cocktail|null>(params.cocktail ? params.cocktail :null)
@@ -13,21 +14,16 @@ export const CocktailListElem =(params: {id?: string, cocktail?: Cocktail})=>{
   const id = params.id;
   
   useEffect(()=>{
-    if(lista.includes(params.cocktail!.idDrink)==true){
+    if(params.cocktail?.idDrink && lista.includes(params.cocktail?.idDrink)==true){
       setFavorito(true)
     }
-    {!params.cocktail && id && api.get(`search.php?s=${id}`).then((e)=>{setDrink(e.data)}).then(()=>{
-        if(lista.includes(params.cocktail!.idDrink)==true){
-          setFavorito(true)
-        }
-      }
-    )}
-    
+    {!params.cocktail && id && getCocktailById(Number(id)).then((e)=>{setDrink(e!)})}
   },[id, lista])
   return (
     <div>
       {drink && 
       <div className="Elem">
+        {params.cocktail?.idDrink && 
         <button 
           onClick={()=>{
             if(favorito == false){
@@ -40,8 +36,8 @@ export const CocktailListElem =(params: {id?: string, cocktail?: Cocktail})=>{
           }}
         >
           {favorito !== true ? <p>añadir</p>: <p>eliminar</p>}
-        </button>
-            
+        </button>}
+        
         <Link href={`/cocktail/${drink?.idDrink}`}>
           <p/>
           {drink?.strDrinkThumb && <img className="image" src={drink?.strDrinkThumb}/>}

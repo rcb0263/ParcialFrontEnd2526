@@ -4,7 +4,7 @@ import "./style.css";
 
 
 interface CocktailListProps {
-    cocktails: Cocktail[]
+    cocktails: Cocktail[],
 }
 
 export const CocktailList =(props: CocktailListProps)=>{

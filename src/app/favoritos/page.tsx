@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import './../style.css'
 import { useLista } from "@/context/listaContext";
+import { CocktailListElem } from "@/components/cocktailListElem";
 const Page = () => {
 
   const {lista} = useLista()
@@ -13,8 +14,8 @@ const Page = () => {
       <h1>Favoritos</h1>
         <button onClick={async ()=>{
             router.push(`/`)
-        }}>Pricipal</button>
-        {lista.map(e=><p key={e} >{e}</p>)}
+        }}>Principal</button>
+        {lista.map(e=><CocktailListElem key={e} id={e}/>)}
     </div>
   );
 }
